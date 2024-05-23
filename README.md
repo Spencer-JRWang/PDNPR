@@ -9,6 +9,7 @@ git clone https://github.com/Spencer-JRWang/PDNPR
 
 ## 环境配置
 
+### 依赖包
 使用 Conda 创建并配置所需的环境。以下是 `environment.yml` 文件的内容：
 
 ```yaml
@@ -26,7 +27,6 @@ dependencies:
   - pymol-open-source
 ```
 
-## 环境配置
 ### 创建 Conda 环境：
 ```sh
 conda env create -f environment.yml
