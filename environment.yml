@@ -1,0 +1,12 @@
+name: PDNPR
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.10
+  - numpy
+  - tkinker
+  - networkx
+  - mdtraj
+  - matplotlib
+  - pymol-open-source
