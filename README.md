@@ -2,6 +2,11 @@
 
 PDNPR 是一个用于可视化蛋白质动态网络路径的工具，结合了 PyMOL、NetworkX 和 MDTraj 等库，实现了从分子动力学轨迹提取、网络构建、路径分析和可视化。
 
+## 代码获取
+```sh
+git clone https://github.com/Spencer-JRWang/PDNPR
+```
+
 ## 环境配置
 
 使用 Conda 创建并配置所需的环境。以下是 `environment.yml` 文件的内容：
