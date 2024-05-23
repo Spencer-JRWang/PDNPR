@@ -62,10 +62,14 @@ python pdnpr.py
 
 ## 运行示例
 ### GUI
-![Figure_run](Example/Output/run.png)
+<p align="center">
+  <img src="Example/Output/run.png" alt="Figure_run" width="500" />
+</p>
 ### Shortest route
 ```txt
 shortest route: 915 -> 936 -> 935 -> 809 -> 808 -> 840 -> 841 -> 709 -> 708 -> 747 -> 743 -> 8
 ```
 ### PyMoL Figure
-![Figure_exp](Example/Output/pymol_fig.png)
+<p align="center">
+  <img src="Example/Output/pymol_fig.png" alt="Figure_mol" width="500" />
+</p>
