@@ -65,10 +65,12 @@ python pdnpr.py
 <p align="center">
   <img src="Example/Output/run.png" alt="Figure_run" width="500" />
 </p>
+
 ### Shortest route
 ```txt
 shortest route: 915 -> 936 -> 935 -> 809 -> 808 -> 840 -> 841 -> 709 -> 708 -> 747 -> 743 -> 8
 ```
+
 ### PyMoL Figure
 <p align="center">
   <img src="Example/Output/pymol_fig.png" alt="Figure_mol" width="500" />
