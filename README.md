@@ -1,16 +1,16 @@
 # Protein Dynamic Network Pathway Runner (PDNPR)
 
-PDNPR 是一个用于可视化蛋白质动态网络路径的工具，结合了 PyMOL、NetworkX 和 MDTraj 等库，实现了从分子动力学轨迹提取、网络构建、路径分析和可视化。
+PDNPR is a tool for visualizing protein dynamic network paths, combining libraries such as PyMOL, NetworkX and MDTraj to achieve trajectory extraction, network construction, path analysis and visualization from molecular dynamics.
 
-## 代码获取
+## Code get
 ```sh
 git clone https://github.com/Spencer-JRWang/PDNPR
 ```
 
-## 环境配置
+## Environment configuration
 
-### 依赖包
-使用 Conda 创建并配置所需的环境。以下是 `environment.yml` 文件的内容：
+### Dependency package
+Create and configure the required environment using Conda. The following is the contents of the 'environment.yml' file:
 
 ```yaml
 name: PDNPR
@@ -27,40 +27,45 @@ dependencies:
   - pymol-open-source
 ```
 
-### 创建 Conda 环境：
+### Create Conda environment:
 ```sh
 conda env create -f environment.yml
 ```
-### 激活conda环境
+
+```sh
+Activate the conda environment
+```
+
 ```sh
 conda activate PDNPR
 ```
-## 运行PDNPR
-1. 确保已激活`PDNPR`环境，然后运行`pdnpr.py`脚本：
+## Run PDNPR
+1. Make sure that the 'pdnpr' environment is activated, then run the 'pdNPR.py' script:
+
 ```sh
 python pdnpr.py
 ```
 
-2. 输入参数    
-- 在 GUI 界面中，输入以下参数：
-   - Step: 用于提取帧的步幅。
-   - Start Amino Acid: 起始氨基酸编号。
-   - End Amino Acid: 结束氨基酸编号。
-   - Edge Cutoff: 边权重的阈值。
-- 选择文件
-   - 点击run按钮以选择分子动力学轨迹文件（XTC 文件）和蛋白质结构文件（PDB 文件）。
+2. Set parameters
+- On the GUI screen, enter the following parameters:
+  - Step: retrieves the frame stride.
+  - Start Amino Acid: indicates the start amino acid number.
+  - End Amino Acid: indicates the number of the end amino acid.
+  - Edge Cutoff: specifies the threshold of the edge weight.
+  - Select file
+  - Click the run button to select the Molecular Dynamics trajectory file (XTC file) and Protein structure file (PDB file).
 
-- 运行任务
-   - 输出区域会显示进度和信息。任务包括以下步骤：
-        - 提取帧
-        - 生成网络
-        - 合并网络
-        - 计算最短路径
-        - 生成并保存 PyMOL 图像
-        - 查看结果
-- 任务完成后，输出区域会显示最短路径的信息，保存图像和pse文件，并自动打开生成的图像文件。
+- Run the task
+  - The output area displays progress and information. The task consists of the following steps:
+  - Extract frames
+  - Generating network
+  - Merge networks
+  - Calculate the shortest path
+  - Generate and save PyMOL images
+- View results
+  - After completion of the task, the output area will display the information of the shortest path, save the image and pse file, and automatically open the generated image file.
 
-## 运行示例
+## Run the example
 ### GUI
 <p align="center">
   <img src="Example/Output/run.png" alt="Figure_run" width="500" />
