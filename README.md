@@ -73,7 +73,7 @@ python pdnpr.py
 
 ### Shortest route
 ```txt
-shortest route: 915 -> 936 -> 935 -> 809 -> 808 -> 840 -> 841 -> 709 -> 708 -> 747 -> 743 -> 8
+shortest route: 915 -> 936 -> 935 -> 809 -> 808 -> 840 -> 841 -> 709 -> 708 -> 747 -> 743 -> 88
 ```
 
 ### PyMoL Figure
