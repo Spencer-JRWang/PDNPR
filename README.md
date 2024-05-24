@@ -27,18 +27,18 @@ dependencies:
   - pymol-open-source
 ```
 
+
 ### Create Conda environment:
+- Build environment
 ```sh
 conda env create -f environment.yml
 ```
 
-```sh
-Activate the conda environment
-```
-
+- Activate environment
 ```sh
 conda activate PDNPR
 ```
+
 ## Run PDNPR
 1. Make sure that the 'pdnpr' environment is activated, then run the 'pdNPR.py' script:
 
