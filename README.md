@@ -65,7 +65,7 @@ python pdnpr.py
 - View results
   - After completion of the task, the output area will display the information of the shortest path, save the image and pse file, and automatically open the generated image file.
 
-## Run the example
+## Running example
 ### GUI
 <p align="center">
   <img src="Example/Output/run.png" alt="Figure_run" width="300" />
