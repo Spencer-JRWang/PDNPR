@@ -56,13 +56,14 @@ python pdnpr.py
   - Click the run button to select the Molecular Dynamics trajectory file (XTC file) and Protein structure file (PDB file).
 
 - Run the task
-  - The output area displays progress and information. The task consists of the following steps:
-  - Extract frames
-  - Generating network
-  - Merge networks
-  - Calculate the shortest path
-  - Generate and save PyMOL images
-- View results
+  - The output area displays progress and information. 
+  - The task consists of the following steps:
+    - Extract frames
+    - Generating network
+    - Merge networks
+    - Calculate the shortest path
+    - Generate and save PyMOL images
+  - View results
   - After completion of the task, the output area will display the information of the shortest path, save the image and pse file, and automatically open the generated image file.
 
 ## Running example
