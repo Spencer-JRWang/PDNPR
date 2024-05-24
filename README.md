@@ -68,7 +68,7 @@ python pdnpr.py
 ## Run the example
 ### GUI
 <p align="center">
-  <img src="Example/Output/run.png" alt="Figure_run" width="500" />
+  <img src="Example/Output/run.png" alt="Figure_run" width="300" />
 </p>
 
 ### Shortest route
