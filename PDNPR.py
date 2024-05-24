@@ -30,29 +30,20 @@ import sys
 import math
 import networkx as nx
 import mdtraj as md
+import matplotlib
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
 import re
 from collections import defaultdict
 import pymol
 from pymol import cmd
 from PIL import Image
+from threading import Thread
 
 def visualize_protein(selection_residues, pdb_path):
-    '''
-    Visualizes a protein structure with a highlighted path and selected residues using PyMOL.
-
-    Parameters:
-        selection_residues (list): List of residue indices to be highlighted in the protein structure.
-        pdb_path (str): Path to the protein structure file in PDB format.
-
-    Returns:
-        str: Path to the generated image file.
-    '''
-    # Launch PyMOL in GUI-less mode
     from pymol import cmd
     pymol.finish_launching(['pymol', '-cq'])
 
-    # Load protein file
     cmd.load(pdb_path)
 
     first_residue_selection = f"resi {selection_residues[0]}"
@@ -61,19 +52,16 @@ def visualize_protein(selection_residues, pdb_path):
     final_selection = f"{first_residue_selection} or {middle_residues_selection} or {last_residue_selection}"
     node_selection = 'resi ' + '+'.join(map(str, selection_residues))
 
-    # Execute selection and display commands in PyMOL
     cmd.select("selected_residues", final_selection)
     cmd.show("spheres", "selected_residues")
     cmd.set("sphere_scale", 1, first_residue_selection)
     cmd.set("sphere_scale", 1, last_residue_selection)
     cmd.set("sphere_scale", 0.7, middle_residues_selection)
 
-    # Display background protein as cartoon and fade
     cmd.show('cartoon', 'all')
     cmd.color('lightorange', 'all')
     cmd.set('cartoon_transparency', 0.87, 'all')
 
-    # Path display
     cmd.create("my_path", "sele")
 
     for j in range(len(selection_residues)):
@@ -110,7 +98,6 @@ def calc_distance(frame, index1, index2):
     atom2 = frame.xyz[0, index2]
     dist = math.sqrt((atom2[0] - atom1[0])**2 + (atom2[1] - atom1[1])**2 + (atom2[2] - atom1[2])**2)
     return abs(dist)
-
 
 class StdoutRedirector:
     def __init__(self, text_widget):
@@ -302,6 +289,13 @@ def show_image(image_path):
     image = Image.open(image_path)
     image.show()
 
+def run_task_in_thread():
+    # 禁用按钮
+    run_button.config(state=tk.DISABLED)
+    # 创建线程运行任务
+    task_thread = Thread(target=run_md_task)
+    task_thread.start()
+
 window = tk.Tk()
 window.title("Protein Dynamic Network Pathway Runner")
 
@@ -321,7 +315,7 @@ tk.Label(window, text="Edge Cutoff:").grid(row=3, column=0, padx=10, pady=10)
 edge_cutoff_entry = tk.Entry(window)
 edge_cutoff_entry.grid(row=3, column=1, padx=10, pady=10)
 
-run_button = tk.Button(window, text="Run", command=run_md_task)
+run_button = tk.Button(window, text="Run", command=run_task_in_thread)
 run_button.grid(row=4, column=0, columnspan=2, pady=20)
 
 output_text = scrolledtext.ScrolledText(window, width=50, height=15)
@@ -333,4 +327,3 @@ progress_bar.grid(row=6, column=0, columnspan=2, pady=10)
 sys.stdout = StdoutRedirector(output_text)
 
 window.mainloop()
-
