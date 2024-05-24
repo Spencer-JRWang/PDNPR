@@ -139,8 +139,15 @@ conda activate PDNPR
 ## Run PDNPR
 1. Make sure that the PDNPR environment is activated, then run the 'pdNPR.py' script:
 
+- use PDNPR GUI
 ```sh
-python PDNPR.py
+python GUI.py
+```
+
+- use PDNPR package
+```python
+from FDNPR import fdnpr
+fdnpr(step, start_AA, end_AA, edge_cutoff, md_file, pdb_file)
 ```
 
 2. Set parameters
@@ -164,7 +171,7 @@ python PDNPR.py
   - After completion of the task, the output area will display the information of the shortest path, save the image and pse file, and automatically open the generated image file.
 
 ## Running example
-### GUI
+## GUI
 <p align="center">
   <img src="Example/Output/run.png" alt="Figure_run" width="300" />
 </p>
@@ -178,3 +185,9 @@ shortest route: 915 -> 936 -> 935 -> 809 -> 808 -> 840 -> 841 -> 709 -> 708 -> 7
 <p align="center">
   <img src="Example/Output/pymol_fig.png" alt="Figure_mol" width="500" />
 </p>
+
+## package
+```python
+from FDNPR import fdnpr
+fdnpr(step, start_AA, end_AA, edge_cutoff, md_file, pdb_file)
+```
