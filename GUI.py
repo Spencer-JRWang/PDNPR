@@ -256,7 +256,6 @@ def edge_frequency(networks):
 
     """
     # Display a message indicating network generation
-    output_text.insert(tk.END, "...Generating networks...\n")
     window.update_idletasks()  # Update the GUI to show the message
     
     # Initialize a dictionary to store edge frequencies
@@ -309,7 +308,8 @@ def combine_network(graph_list, record=False):
     return integrated_network
 
 
-def graph_short_path(file, output, start, end, cutoff, record=False, plot=True):
+
+def graph_short_path(file, output, start, end, cutoff, record=True, plot=True):
     """
     Find the shortest path between two nodes in a graph.
 
@@ -416,7 +416,7 @@ def graph_short_path(file, output, start, end, cutoff, record=False, plot=True):
 
     # Record the shortest route if specified
     if record != False:
-        f = open(f"{output}/record_route.txt", "a")
+        f = open(f"{output}/route_record.txt", "a")
         f.write(f"from {start} to {end}: \t")
         f.write(" -> ".join(shortest_list_final) + "\n")
         f.close()
@@ -492,7 +492,7 @@ def run_md_task():
     # Output completion message
     output_text.insert(tk.END, "Task completed.\n")
     window.update_idletasks()
-
+    
 
 def show_image(image_path):
     """
