@@ -1,3 +1,27 @@
+# -*- coding: utf-8 -*-
+
+"""
+
+@ author: Jingran Wang
+
+@ Email: jrwangspencer@stu.suda.deu.cn
+
+@ Address: Center for Systems Biology, Department of Bioinformatics, School of Biology and Basic Medical Sciences, Soochow University, Suzhou 215123, China.
+
+@ GitHub: https://github.com/Spencer-JRWang/PDNPR
+
+
+"""
+
+#############################################
+### Introduction of FDNPR
+#
+# @ PDNPR is a tool for visualizing protein dynamic network paths, combining libraries such as PyMOL, NetworkX and MDTraj to achieve trajectory extraction, network construction, path analysis and visualization from molecular dynamics.
+# @ Python package in need: os, tkinker, sys, math, networkx, mdtraj, matplotlib, re, collections, pymol, PIL
+#
+#############################################
+
+
 import os
 os.environ['PYMOL_EXTRA'] = '-q'
 import tkinter as tk
