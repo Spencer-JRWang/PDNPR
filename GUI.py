@@ -421,10 +421,10 @@ def graph_short_path(file, output, start, end, cutoff, record=True, plot=True):
         f.write(" -> ".join(shortest_list_final) + "\n")
         f.close()
         output_text.insert(tk.END, f"shortest route: {' -> '.join(shortest_list_final)}\n")
-        print(f"shortest route: {' -> '.join(shortest_list_final)}")
+        # print(f"shortest route: {' -> '.join(shortest_list_final)}")
     else:
         output_text.insert(tk.END, f"shortest route: {' -> '.join(shortest_list_final)}\n")
-        print(f"shortest route: {' -> '.join(shortest_list_final)}")
+        # print(f"shortest route: {' -> '.join(shortest_list_final)}")
 
     # Save the path figure if specified
     if plot == True:
