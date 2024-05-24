@@ -17,6 +17,7 @@ name: PDNPR
 channels:
   - defaults
   - conda-forge
+  - anaconda
 dependencies:
   - python=3.10
   - numpy
