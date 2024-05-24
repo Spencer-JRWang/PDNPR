@@ -137,10 +137,10 @@ conda activate PDNPR
 ```
 
 ## Run PDNPR
-1. Make sure that the 'pdnpr' environment is activated, then run the 'pdNPR.py' script:
+1. Make sure that the PDNPR environment is activated, then run the 'pdNPR.py' script:
 
 ```sh
-python pdnpr.py
+python PDNPR.py
 ```
 
 2. Set parameters
