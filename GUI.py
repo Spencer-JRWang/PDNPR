@@ -39,8 +39,10 @@ import pymol
 from pymol import cmd
 from PIL import Image
 from threading import Thread
+import warnings
+warnings.filterwarnings('ignore')
 
-def visualize_protein(selection_residues, pdb_path):
+def visualize_protein(selection_residues, pdb_path, start, end):
     '''
     Visualize protein structure in PyMOL
     :param selection_residues: list of selected residues
@@ -93,12 +95,12 @@ def visualize_protein(selection_residues, pdb_path):
     cmd.set('ray_opaque_background', 0)
 
     cmd.ray(5000, 5000)
-    cmd.png('pymol_fig.png')
-    cmd.save('pymol_file.pse')
+    cmd.png(f'{start} to {end}.png')
+    cmd.save(f'{start} to {end}.pse')
 
     cmd.quit()
 
-    return 'pymol_fig.png'
+    return f'{start} to {end}.png'
 
 def calc_distance(frame, index1, index2):
     """
@@ -442,7 +444,7 @@ def graph_short_path(file, output, start, end, cutoff, record=True, plot=True):
         nx.draw_networkx_labels(G, pos, labels=shortest_path_labels, font_size=7)
         nx.draw_networkx_edges(G, pos, edgelist=path_edges, width=1.8, edge_color='orange', arrows=True, arrowstyle='->')
         plt.axis('off')
-        plt.savefig(f"{output}/path from {start} to {end}.pdf")
+        plt.savefig(f"{output}/{start} to {end}.pdf")
         plt.close()
     else:
         pass
@@ -488,7 +490,7 @@ def run_md_task():
 
     # Visualize protein structure and save image
     output_text.insert(tk.END, "...Saving pymol figure...\n")
-    image_path = visualize_protein(sp, pdb_file)
+    image_path = visualize_protein(sp, pdb_file, start = start_AA, end = end_AA)
     show_image(image_path)
 
     # Output completion message
@@ -508,6 +510,7 @@ def show_image(image_path):
     image = Image.open(image_path)
     # Display the image using the default image viewer
     image.show()
+    
 
 def run_task_in_thread():
     """

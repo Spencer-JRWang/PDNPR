@@ -34,7 +34,7 @@ import pymol
 from pymol import cmd
 
 
-def visualize_protein(selection_residues, pdb_path):
+def visualize_protein(selection_residues, pdb_path, start, end):
     '''
     Visualizes a protein structure with a highlighted path and selected residues using PyMOL.
 
@@ -107,8 +107,8 @@ def visualize_protein(selection_residues, pdb_path):
 
     # Render using ray tracing and save the image
     cmd.ray(5000, 5000)
-    cmd.png('output_image.png')
-    cmd.save('output.pse')
+    cmd.png(f'{start} to {end}.png')
+    cmd.save(f'{start} to {end}.pse')
 
     # Quit PyMOL
     cmd.quit()
@@ -377,7 +377,7 @@ def graph_short_path(file, output, start, end, cutoff, record=False, plot=True):
         nx.draw_networkx_labels(G, pos, labels=shortest_path_labels, font_size=7)
         nx.draw_networkx_edges(G, pos, edgelist=path_edges, width=1.8, edge_color='orange', arrows=True, arrowstyle='->')
         plt.axis('off')
-        plt.savefig(f"{output}/path from {start} to {end}.pdf")
+        plt.savefig(f"{output}/{start} to {end}.pdf")
         plt.close()
     else:
         pass
@@ -416,4 +416,4 @@ def fdnpr(step, start_AA, end_AA, edge_cutoff, md_file, pdb_file):
     
     print("...Saving pymol figure...")
     # Use PyMOL to visualize protein
-    visualize_protein(sp, pdb_file)
+    visualize_protein(sp, pdb_file, start=start_AA, end=end_AA)
