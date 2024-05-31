@@ -76,6 +76,6 @@ shortest route: 915 -> 936 -> 935 -> 809 -> 808 -> 840 -> 841 -> 709 -> 708 -> 7
 
 ## package
 ```python
-from FDNPR import fdnpr
-fdnpr(step, start_AA, end_AA, edge_cutoff, md_file, pdb_file)
+from PDNPR import pdnpr
+pdnpr(step, start_AA, end_AA, edge_cutoff, md_file, pdb_file)
 ```
