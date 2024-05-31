@@ -383,7 +383,7 @@ def graph_short_path(file, output, start, end, cutoff, record=False, plot=True):
         pass
     return shortest_list_final
 
-def fdnpr(step, start_AA, end_AA, edge_cutoff, md_file, pdb_file):
+def pdnpr(step, start_AA, end_AA, edge_cutoff, md_file, pdb_file):
     """
     Run the full protein dynamic network pathway runner task.
 
