@@ -24,6 +24,7 @@
 
 import math
 import networkx as nx
+from tqdm import tqdm
 import mdtraj as md
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -34,7 +35,7 @@ import pymol
 from pymol import cmd
 
 
-def visualize_protein(selection_residues, pdb_path, start, end):
+def visualize_protein(selection_residues, pdb_path, start, end, prefix):
     '''
     Visualizes a protein structure with a highlighted path and selected residues using PyMOL.
 
@@ -107,8 +108,8 @@ def visualize_protein(selection_residues, pdb_path, start, end):
 
     # Render using ray tracing and save the image
     cmd.ray(5000, 5000)
-    cmd.png(f'{start} to {end}.png')
-    cmd.save(f'{start} to {end}.pse')
+    cmd.png(f'{prefix}_{start} to {end}.png')
+    cmd.save(f'{prefix}_{start} to {end}.pse')
 
     # Quit PyMOL
     cmd.quit()
@@ -131,7 +132,7 @@ def extract_frames(input_xtc, input_top, stride=10):
     traj = md.load(input_xtc, top=input_top)
     
     # Extract frames with the specified stride
-    extracted_frames = [traj[i] for i in range(0, traj.n_frames, stride)]
+    extracted_frames = [traj[i] for i in tqdm(range(0, traj.n_frames, stride))]
     
     return extracted_frames
 
@@ -275,7 +276,7 @@ def combine_network(graph_list, record=False):
     return integrated_network
 
 
-def graph_short_path(file, output, start, end, cutoff, record=False, plot=True):
+def graph_short_path(file, output, start, end, cutoff, prefix,record=False, plot=True):
     '''
     A function to find the shortest path between two nodes in a network and plot it.
     parameters:
@@ -292,6 +293,7 @@ def graph_short_path(file, output, start, end, cutoff, record=False, plot=True):
         a = m[0].strip("\n")
         b = m[1].strip("\n")
         l = m[2].strip("\n")
+
         a = re.findall(r'\d+', a)[0]
         b = re.findall(r'\d+', b)[0]
         a = str(int(a) + 1)
@@ -306,7 +308,8 @@ def graph_short_path(file, output, start, end, cutoff, record=False, plot=True):
                 G.add_edge(b, a)
                 edge_prob_dict[f"{b}, {a}"] = float(l)
     f.close()
-
+    # print(G.nodes)
+    os.remove(file)
     print("...Searching full shortest route in unweighted graph...")
     shortest_path = nx.all_shortest_paths(G, source=start, target=end)
     shortest_path = list(shortest_path)
@@ -357,9 +360,9 @@ def graph_short_path(file, output, start, end, cutoff, record=False, plot=True):
         f.write(f"from {start} to {end}: \t")
         f.write(" -> ".join(shortest_list_final) + "\n")
         f.close()
-        print("shortest route:", " -> ".join(shortest_list_final))
+        print(f"mutation {prefix} shortest route:", " -> ".join(shortest_list_final))
     else:
-        print("shortest route:", " -> ".join(shortest_list_final))
+        print(f"mutation {prefix} shortest route:", " -> ".join(shortest_list_final))
 
     # plot general figures
     if plot == True:
@@ -377,7 +380,7 @@ def graph_short_path(file, output, start, end, cutoff, record=False, plot=True):
         nx.draw_networkx_labels(G, pos, labels=shortest_path_labels, font_size=7)
         nx.draw_networkx_edges(G, pos, edgelist=path_edges, width=1.8, edge_color='orange', arrows=True, arrowstyle='->')
         plt.axis('off')
-        plt.savefig(f"{output}/{start} to {end}.pdf")
+        plt.savefig(f"{output}/{prefix}_{start} to {end}.pdf")
         plt.close()
     else:
         pass
@@ -396,13 +399,17 @@ def pdnpr(step, start_AA, end_AA, edge_cutoff, md_file, pdb_file):
         pdb_file (str): Path to the PDB file.
 
     """
+    prefix_name = start_AA
+    start_AA = re.findall(r'\d+',start_AA)[0]
+    start_AA = str(start_AA)
+    end_AA = str(end_AA)
     # Run MD task
     print("...Loading MD files...")
     frame_list = extract_frames(md_file, pdb_file, stride=step)
     print("...Constructing networks...")
     graph_list = []
     # Iterate over each frame and construct a graph
-    for frame in frame_list:
+    for frame in tqdm(frame_list):
         prot_graph = construct_graph(frame=frame)
         graph_list.append(prot_graph)
     # Combine constructed graphs into a single network
@@ -412,8 +419,8 @@ def pdnpr(step, start_AA, end_AA, edge_cutoff, md_file, pdb_file):
     # Find shortest path in the combined network
     print("...Searching full shortest routes...")
     sp = graph_short_path('./Combined_Dyn_Net.txt', './', start_AA, end_AA,
-                          cutoff=edge_cutoff, plot=True)
+                          cutoff=edge_cutoff, prefix=prefix_name, plot=True)
     
     print("...Saving pymol figure...")
     # Use PyMOL to visualize protein
-    visualize_protein(sp, pdb_file, start=start_AA, end=end_AA)
+    visualize_protein(sp, pdb_file, start=start_AA, end=end_AA, prefix=prefix_name)
