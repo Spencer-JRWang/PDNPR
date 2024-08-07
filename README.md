@@ -34,7 +34,7 @@ python GUI.py
 
 - use PDNPR package
 ```python
-from PDNPR import pdnpr
+from PDNPR.PDNPR import pdnpr
 pdnpr(step, start_AA, end_AA, edge_cutoff, md_file, pdb_file)
 ```
 
