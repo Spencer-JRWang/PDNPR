@@ -29,7 +29,7 @@ conda activate PDNPR
 
 - use PDNPR GUI
 ```sh
-python GUI.py
+python Run_GUI.py
 ```
 
 - use PDNPR package
