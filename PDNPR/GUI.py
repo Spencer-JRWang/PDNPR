@@ -94,8 +94,9 @@ def visualize_protein(selection_residues, pdb_path, start, end):
     cmd.bg_color('white')
     cmd.set('ray_opaque_background', 0)
 
-    cmd.ray(5000, 5000)
-    cmd.png(f'{start} to {end}.png')
+    # cmd.ray(5000, 5000)
+    # cmd.png(f'{start} to {end}.png')
+
     cmd.save(f'{start} to {end}.pse')
 
     cmd.quit()
@@ -371,6 +372,13 @@ def graph_short_path(file, output, start, end, cutoff, record=True, plot=True):
     # Find all shortest paths between start and end nodes
     shortest_path = nx.all_shortest_paths(G, source=start, target=end)
     shortest_path = list(shortest_path)
+    full_path_output = []
+    for i in shortest_path:
+        route = ' -> '.join(i)
+        full_path_output.append(route)
+    output_text.insert(tk.END, f"all shortest routes:\n")
+    for i in full_path_output:
+        output_text.insert(tk.END, f"{i}\n")
 
     # Display message indicating betweenness computation
     output_text.insert(tk.END, "...Computing betweenness...\n")
@@ -419,7 +427,11 @@ def graph_short_path(file, output, start, end, cutoff, record=True, plot=True):
     # Record the shortest route if specified
     if record != False:
         f = open(f"{output}/route_record.txt", "a")
-        f.write(f"from {start} to {end}: \t")
+        f.write(f"from {start} to {end}: \n")
+        f.write("Full:\n")
+        for i in full_path_output:
+            f.write(f"{i}\n")
+        f.write("Selected:\n")
         f.write(" -> ".join(shortest_list_final) + "\n")
         f.close()
         output_text.insert(tk.END, f"shortest route: {' -> '.join(shortest_list_final)}\n")
@@ -464,7 +476,7 @@ def run_md_task():
     start_AA = start_aa_entry.get()  # Get the start amino acid
     end_AA = end_aa_entry.get()  # Get the end amino acid
     edge_cutoff = float(edge_cutoff_entry.get())  # Get the edge cutoff value
-    md_file = filedialog.askopenfilename(title="Select MD File")  # Get the MD file path
+    md_file = filedialog.askopenfilename(title="Select XTC File")  # Get the MD file path
     pdb_file = filedialog.askopenfilename(title="Select PDB File")  # Get the PDB file path
 
     window.update_idletasks()  # Update the GUI
@@ -490,8 +502,9 @@ def run_md_task():
 
     # Visualize protein structure and save image
     output_text.insert(tk.END, "...Saving pymol figure...\n")
+
     image_path = visualize_protein(sp, pdb_file, start = start_AA, end = end_AA)
-    show_image(image_path)
+    # show_image(image_path)
 
     # Output completion message
     output_text.insert(tk.END, "Task completed.\n")
@@ -548,10 +561,10 @@ edge_cutoff_entry.grid(row=3, column=1, padx=10, pady=10)
 run_button = tk.Button(window, text="Run", command=run_task_in_thread)
 run_button.grid(row=4, column=0, columnspan=2, pady=20)
 
-output_text = scrolledtext.ScrolledText(window, width=50, height=15)
+output_text = scrolledtext.ScrolledText(window, width=80, height=15)
 output_text.grid(row=5, column=0, columnspan=2, padx=10, pady=10)
 
-progress_bar = ttk.Progressbar(window, orient='horizontal', length=200, mode='determinate')
+progress_bar = ttk.Progressbar(window, orient='horizontal', length=500, mode='determinate')
 progress_bar.grid(row=6, column=0, columnspan=2, pady=10)
 
 sys.stdout = StdoutRedirector(output_text)
